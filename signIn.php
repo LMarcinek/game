@@ -2,6 +2,13 @@
 
     session_start();
 
+    if ((!isset($_POST['login']))||(!isset($_POST['password'])))
+    {
+         header('Location: index.php');
+         exit();
+    }
+
+
     require_once "connect.php";
    $sql = @new mysqli($host, $db_user, $db_password, $db_name);
 
@@ -13,11 +20,15 @@
     else{
          $login = $_POST['login'];
          $password = $_POST['password'];
-        
-        $askSql = ("SELECT * FROM uzytkownicy WHERE user='$login' AND pass='$password'");
-        if ($result = $sql->query($askSql))
+         $login = htmlentities($login,ENT_QUOTES,"UTF-8");
+         $password = htmlentities($password, ENT_QUOTES,"UTF-8");
+
+
+        if ($result = $sql->query(sprintf("SELECT * FROM uzytkownicy WHERE user='%s' AND pass='%s'",
+            mysqli_real_escape_string($sql, $login),
+            mysqli_real_escape_string($sql, $password))))
         {
-            
+
             $many_user = $result->num_rows;
             if($many_user>0){
 
