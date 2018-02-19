@@ -19,6 +19,8 @@
 </head>
 <body>
     Tylko martwi ujrzeli koniec wojny - platon <br><br>
+
+    <a href="rejest.php">rejestracja- załóż konot u nas to nic nie kosztuje</a>
     
     <form action="signIn.php" method="post">
         login: 
